@@ -374,7 +374,10 @@ namespace LoopbackRecorder
                 //开启时间事件
                 breatheTimer.Start();
 
-
+                if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "/Recordings"))
+                {
+                    Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "/Recordings");
+                }
                 string outputPath = Path.Combine(
                     AppDomain.CurrentDomain.BaseDirectory + "/Recordings",
                     $"record_{DateTime.Now:yyyyMMdd_HHmmss}.wav"
@@ -385,6 +388,7 @@ namespace LoopbackRecorder
                     outputPath,
                     capture.WaveFormat
                 );
+                
                 //注册监听事件
                 capture.DataAvailable += (s, e) =>
                 {
